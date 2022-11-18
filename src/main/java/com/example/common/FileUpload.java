@@ -39,7 +39,7 @@ public class FileUpload {
 //            one.setCnt(Integer.parseInt(multipartRequest.getParameter("cnt")));
 
 
-            if(sid!=null && sid.equals("")){
+            if(sid!=null && !sid.equals("")){
                 BoardDAO dao = new BoardDAO();
                 String oldfilename = dao.getPhotoFilename(Integer.parseInt(sid));
 

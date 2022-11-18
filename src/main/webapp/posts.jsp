@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.crud.dao.BoardDAO, com.crud.bean.BoardVO,java.util.*"%>
+<%@page import="com.example.dao.BoardDAO, com.example.bean.BoardVO,java.util.*"%>
+<%@ page import="java.io.File" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -27,6 +30,10 @@
   background-color: #006bb3;
   color: white;
 }
+.photo{
+	width: 150px;
+	hieght: 120px;
+}
 </style>
 <script>
 	function delete_ok(id){
@@ -42,23 +49,30 @@
 	List<BoardVO> list = boardDAO.getBoardList();
 	request.setAttribute("list",list);
 %>
+
 <table id="list" width="90%">
 <tr>
 	<th>Id</th>
+	<th>Category</th>
 	<th>Title</th>
 	<th>Writer</th>
 	<th>Content</th>
+	<th>File</th>
 	<th>Regdate</th>
+	<th>Editdate</th>
 	<th>Edit</th>
 	<th>Delete</th>
 </tr>
 <c:forEach items="${list}" var="u">
 	<tr>
 		<td>${u.getSeq()}</td>
+		<td>${u.getCategory()}</td>
 		<td>${u.getTitle()}</td>
 		<td>${u.getWriter()}</td>
 		<td>${u.getContent()}</td>
+		<td><img src="${pageContext.request.contextPath }/upload/${u.getFileName()}" class = "photo"></td>
 		<td>${u.getRegdate()}</td>
+		<td>${u.getEditdate()}</td>
 		<td><a href="editform.jsp?id=${u.getSeq()}">Edit</a></td>
 		<td><a href="javascript:delete_ok('${u.getSeq()}')">Delete</a></td>
 	</tr>
